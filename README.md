@@ -1,14 +1,14 @@
 # Python Robotics Simulator
 This is a simple, portable robot simulator developed by [Student Robotics](https://studentrobotics.org/).
 
-## Installing and runnning 
+## Usage
 The simulator requires a Python 2.7 installation, the [pygame](https://www.pygame.org/news) library, [PyPyBox2D](https://pypi.python.org/pypi/pypybox2d/2.1-r331), and [PyYAML](https://pypi.org/project/PyYAML/).
 
 The program runs with:
 ```bashscript
 $ python run.py assignment1.py
 ```
-## Assignment
+## Description
 The robot will have the following behaviour
 - constrantly drive the robot around the circuit in the counter-clockwise direction
 - avoid touching the golden boxes
