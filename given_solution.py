@@ -109,8 +109,6 @@ def check_left_side():
         return dist
 
 silver_token_counter = 0
-loop_counter = 0
-loops_time = []
 
 while 1:
     dist, rot_y = find_silver_token()
@@ -134,22 +132,11 @@ while 1:
                 if silver_token_counter == 0:
                     start = time.time()
                 silver_token_counter += 1
-                if silver_token_counter == 8:
+                if silver_token_counter == 9:
                     end = time.time()
                     print("loop time: ")
                     print(end - start)
-                    loops_time.append(end - start)
-                    loop_counter += 1
-                    silver_token_counter = 1
-                    start = time.time()
-
-                    if loop_counter == 5:
-                        print("statistical analysis done...")
-                        print("loops time:")
-                        print(loops_time)
-                        print("average loop time:")
-                        print(sum(loops_time)/len(loops_time))
-                        exit() 
+                    exit() 
             else:
                 print("Aww, I'm not close enough.")
         elif -a_th<= rot_y <= a_th: # if the robot is well aligned with the token, we go forward

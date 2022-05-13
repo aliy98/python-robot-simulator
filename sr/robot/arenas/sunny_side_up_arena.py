@@ -50,7 +50,6 @@ class SunnySideUpArena(Arena):
         zone6 = [-3, -2, -0.75, 3.5]
         zone7 = [-8.5, -2, 3.5, 4.5]
         zone8 = [-8.5, -7.5, -3.5, 3.5]
-        zones = [zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8]
 
         for i in range(38):
                 token = GoldToken(self, count)
@@ -163,51 +162,42 @@ class SunnySideUpArena(Arena):
             count+1
             
         token=SilverToken(self,count)
-        zone = choice(zones)
-        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
-        # token.location = (-8, 0)
+        token.location = (uniform(zone1[0],zone1[1]), uniform(zone1[2],zone1[3]))
         self.objects.append(token) 
         count+1
     
         token=SilverToken(self,count)
-        zone = choice(zones)
-        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
-        # token.location = (-6, 3.75)
+        token.location = (uniform(zone2[0],zone2[1]), uniform(zone2[2],zone2[3]))
         self.objects.append(token) 
         count+1
 
         token=SilverToken(self,count)
-        zone = choice(zones)
-        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
-        # token.location = (-2.5, 1.25)
+        token.location = (uniform(zone3[0],zone3[1]), uniform(zone3[2],zone3[3]))
         self.objects.append(token) 
         count+1
 
         token=SilverToken(self,count)
-        zone = choice(zones)
-        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
-        # token.location = (1.5, -0.25)
+        token.location = (uniform(zone4[0],zone4[1]), uniform(zone4[2],zone4[3]))
         self.objects.append(token) 
         count+1
 
         token=SilverToken(self,count)
-        zone = choice(zones)
-        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
-        # token.location = (6, 3.75)
+        token.location = (uniform(zone5[0],zone5[1]), uniform(zone5[2],zone5[3]))
         self.objects.append(token) 
         count+1
 
         token=SilverToken(self,count)
-        zone = choice(zones)
-        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
-        # token.location = (8, 0)
+        token.location = (uniform(zone6[0],zone6[1]), uniform(zone6[2],zone6[3]))
         self.objects.append(token) 
         count+1
 
         token=SilverToken(self,count)
-        zone = choice(zones)
-        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
-        # token.location = (-4, -4)
+        token.location = (uniform(zone7[0],zone7[1]), uniform(zone7[2],zone7[3]))
+        self.objects.append(token) 
+        count+1 
+
+        token=SilverToken(self,count)
+        token.location = (uniform(zone8[0],zone8[1]), uniform(zone8[2],zone8[3]))
         self.objects.append(token) 
         count+1      
 

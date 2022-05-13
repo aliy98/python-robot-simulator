@@ -116,15 +116,13 @@ def find_golden_token():
     return left_obs[-1], right_obs[0], len(left_obs), len(right_obs), obs_detected
 
 silver_token_counter = 0
-loop_counter = 0
-loops_time = []
 
 # main loop
 while 1:
     left_obs_dist, right_obs_dist, left_obs_num, right_obs_num, obs_detected  = find_golden_token()
     silver_token_dist, silver_token_rot_y, silver_token_detected = find_silver_token()
 
-    if obs_detected == True: # there is a golden token near the robot 
+    if obs_detected == True and silver_token_detected == False:  # there is a golden token but no silver token near the robot 
         if right_obs_num > left_obs_num: # if the number of golden tokens in the right side are more than the left side, we move the robot to left
             turn(-10,0.25)
             print("left a bit")
@@ -169,19 +167,8 @@ while 1:
                 if silver_token_counter == 0:
                     start = time.time()
                 silver_token_counter += 1
-                if silver_token_counter == 8:
+                if silver_token_counter == 9:
                     end = time.time()
                     print("loop time: ")
                     print(end - start)
-                    loops_time.append(end - start)
-                    loop_counter += 1
-                    silver_token_counter = 1
-                    start = time.time()
-
-                    if loop_counter == 5:
-                        print("statistical analysis done...")
-                        print("loops time:")
-                        print(loops_time)
-                        print("average loop time:")
-                        print(sum(loops_time)/len(loops_time))
-                        exit() 
+                    exit() 
