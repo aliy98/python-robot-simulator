@@ -2,12 +2,14 @@ from __future__ import division
 
 import pygame
 from math import pi
-from random import random
 
 from .arena import Arena, ARENA_MARKINGS_COLOR, ARENA_MARKINGS_WIDTH
 
 from ..markers import Token
 from ..vision import MARKER_TOKEN_GOLD, MARKER_TOKEN_SILVER
+
+from random import uniform
+from random import choice
 
 class GoldToken(Token):
     def __init__(self, arena, marker_number):
@@ -39,12 +41,22 @@ class SunnySideUpArena(Arena):
     def __init__(self, objects=None, wall_markers=True):
         super(SunnySideUpArena, self).__init__(objects, wall_markers)
 
-	count=0
-	for i in range(38):
-            token = GoldToken(self, count)
-            token.location = (-9, -4.5+i*0.25)
-            self.objects.append(token)
-            count+1
+        count=0
+        zone1 = [-8.5, 8.5, -4.25, -3.5]
+        zone2 = [7.5, 8.5, -3.5, 3.5]
+        zone3 = [2, 8.5, 3.5, 4.5]
+        zone4 = [2, 3, -0.75, 4.5]
+        zone5 = [-2, 2, -0.75, 0.25]
+        zone6 = [-3, -2, -0.75, 3.5]
+        zone7 = [-8.5, -2, 3.5, 4.5]
+        zone8 = [-8.5, -7.5, -3.5, 3.5]
+        zones = [zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8]
+
+        for i in range(38):
+                token = GoldToken(self, count)
+                token.location = (-9, -4.5+i*0.25)
+                self.objects.append(token)
+                count+1
 	
         for i in range(23):
             token = GoldToken(self, count)
@@ -151,40 +163,53 @@ class SunnySideUpArena(Arena):
             count+1
             
         token=SilverToken(self,count)
-        token.location = (-8, 0)
+        zone = choice(zones)
+        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
+        # token.location = (-8, 0)
         self.objects.append(token) 
         count+1
-        
+    
         token=SilverToken(self,count)
-        token.location = (-6, 3.75)
+        zone = choice(zones)
+        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
+        # token.location = (-6, 3.75)
         self.objects.append(token) 
         count+1
-        
+
         token=SilverToken(self,count)
-        token.location = (-2.5, 1.25)
+        zone = choice(zones)
+        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
+        # token.location = (-2.5, 1.25)
         self.objects.append(token) 
         count+1
-        
+
         token=SilverToken(self,count)
-        token.location = (1.5, -0.25)
+        zone = choice(zones)
+        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
+        # token.location = (1.5, -0.25)
         self.objects.append(token) 
         count+1
-        
+
         token=SilverToken(self,count)
-        token.location = (6, 3.75)
+        zone = choice(zones)
+        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
+        # token.location = (6, 3.75)
         self.objects.append(token) 
         count+1
-        
+
         token=SilverToken(self,count)
-        token.location = (8, 0.0)
+        zone = choice(zones)
+        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
+        # token.location = (8, 0)
         self.objects.append(token) 
         count+1
-        
+
         token=SilverToken(self,count)
-        token.location = (-4.0, -4.0)
+        zone = choice(zones)
+        token.location = (uniform(zone[0],zone[1]), uniform(zone[2],zone[3]))
+        # token.location = (-4, -4)
         self.objects.append(token) 
-        count+1
-        
+        count+1      
 
     def draw_background(self, surface, display):
         super(SunnySideUpArena, self).draw_background(surface, display)

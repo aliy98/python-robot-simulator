@@ -1,6 +1,7 @@
 from __future__ import print_function
 import time
 from sr.robot import *
+import time
 
 """
 Assignment 1 python script
@@ -51,24 +52,24 @@ def find_silver_token():
 	rot_y (float): angle between the robot and the silver token
     token (bolean): True if there is a silver token near the robot
     """
-    dist = 100
-    rot_y = 360
-    token = False
+    silver_token_dist = 100
+    silver_token_rot_y = 360
+    silver_token_detected = False
 
     # loop for reading the values from sensor
     for token in R.see():
         if token.dist < 3*d_th and token.info.marker_type is MARKER_TOKEN_SILVER:
-            dist = round(token.dist,2)  #reading the distance from the near silver token
-            rot_y = round(token.rot_y,2)  #reading the angle with the near silver token
+            silver_token_dist = round(token.dist,2)  #reading the distance from the near silver token
+            silver_token_rot_y = round(token.rot_y,2)  #reading the angle with the near silver token
         
-        if dist < 2.5*d_th: #detect if there is a silver token near the robot
-            if -180 < rot_y < -90 or 90 < rot_y < 180: # back side is not included
-                token = False
-            if -90 < rot_y < 90: # front side is included
-                token = True
+        if silver_token_dist < 2.5*d_th: #detect if there is a silver token near the robot
+            if -180 < silver_token_rot_y < -90 or 90 < silver_token_rot_y < 180: # back side is not included
+                silver_token_detected = False
+            if -90 < silver_token_rot_y < 90: # front side is included
+                silver_token_detected = True
         else:
-            token = False
-    return dist, rot_y, token 
+            silver_token_detected = False
+    return silver_token_dist, silver_token_rot_y, silver_token_detected
     
 def find_golden_token():
     """
@@ -79,14 +80,14 @@ def find_golden_token():
     right_obs[0]: (float): distance from the golden token which is located in the front right side of the robot (-45 degrees)
 	len(left_obs) (int): number of golden tokens in the left side of the robot
 	len(right_obs) (int): number of golden tokens in the right side of the robot
-    obs (boolean): True if there is a silver token near the robot
+    obs (boolean): True if there is a golden token near the robot
     """
     dists = []
     rots_y = []
     front_obs = []
     right_obs = []
     left_obs = []
-    obs = False
+    obs_detected = False
 
     # loop for reading the values from sensor
     for token in R.see():
@@ -104,7 +105,7 @@ def find_golden_token():
         
     for dist in front_obs: # detect if there is a golden token in front of robot
         if dist < 2*d_th:
-            obs = True
+            obs_detected = True
     
     if len(left_obs) == 0: # if there is no golden token in the left side return 100m distance
         left_obs = [100] 
@@ -112,15 +113,18 @@ def find_golden_token():
     if len(right_obs) == 0: # if there is no golden token in the right side return 100m distance
         right_obs = [100] 
         
-    return left_obs[-1], right_obs[0], len(left_obs), len(right_obs), obs
+    return left_obs[-1], right_obs[0], len(left_obs), len(right_obs), obs_detected
 
+silver_token_counter = 0
+loop_counter = 0
+loops_time = []
 
 # main loop
 while 1:
-    left_obs, right_obs, left_obs_num, right_obs_num, obs  = find_golden_token()
-    dist_token, rot_token, token = find_silver_token()
+    left_obs_dist, right_obs_dist, left_obs_num, right_obs_num, obs_detected  = find_golden_token()
+    silver_token_dist, silver_token_rot_y, silver_token_detected = find_silver_token()
 
-    if obs == True and token == False:  # there is a golden token but no silver token near the robot 
+    if obs_detected == True: # there is a golden token near the robot 
         if right_obs_num > left_obs_num: # if the number of golden tokens in the right side are more than the left side, we move the robot to left
             turn(-10,0.25)
             print("left a bit")
@@ -128,10 +132,10 @@ while 1:
             turn(10,0.25)
             print("right a bit...")
         elif right_obs_num == left_obs_num: # the number of golden tokens in both sides are equal
-            const_right_obs = right_obs # memorizing the distance from front_right side golden token (-45degree)
-            const_left_obs = left_obs   # memorizing the distance from front_left side golden token  (45degree)
-            while obs == True: # moving the robot regarding the memorized values until there is no golden token in front of robot
-                left_obs, right_obs, left_obs_num, right_obs_num, obs  = find_golden_token()
+            const_right_obs = right_obs_dist # memorizing the distance from front_right side golden token (-45degree)
+            const_left_obs = left_obs_dist  # memorizing the distance from front_left side golden token  (45degree)
+            while obs_detected == True: # moving the robot regarding the memorized values until there is no golden token in front of robot
+                left_obs_dist, right_obs_dist, left_obs_num, right_obs_num, obs_detected  = find_golden_token()
                 if const_right_obs < const_left_obs:
                     turn(-10,0.25)
                     print("left a bit")
@@ -141,20 +145,20 @@ while 1:
 
              
     else:
-        if token == False: # if there is no silver and golden token near the robot, we move it forward
+        if silver_token_detected == False: # if there is no silver and golden token near the robot, we move it forward
             drive(60,0.25)
-            print("looking for token...")
+            print("looking for silver token...")
         else: # there is a silver token  but no golden token near the robot
-            if -a_th<= rot_token <= a_th and dist_token > d_th: # if the robot is well aligned with the token, we go forward
+            if -a_th<= silver_token_rot_y <= a_th and silver_token_dist > d_th: # if the robot is well aligned with the token, we go forward
                 print("Ah, here we are!.")
                 drive(10,0.5)     
-            elif rot_token < -a_th: # if the robot is not well aligned with the token, we move it on the left or on the right
+            elif silver_token_rot_y < -a_th: # if the robot is not well aligned with the token, we move it on the left or on the right
                 print("Left a bit...")
                 turn(-2, 0.5)
-            elif rot_token > a_th:
+            elif silver_token_rot_y > a_th:
                 print("Right a bit...")
                 turn(2, 0.5)
-            elif -a_th<= rot_token <= a_th and dist_token <d_th: 
+            elif -a_th<= silver_token_rot_y <= a_th and silver_token_dist <d_th: 
                 print("Found it!")
                 R.grab() # if we are close to the token, we grab it.
                 print("Gotcha!") 
@@ -162,4 +166,22 @@ while 1:
                 R.release()
                 drive(-45,0.5)
                 turn(-40,1.5)  
+                if silver_token_counter == 0:
+                    start = time.time()
+                silver_token_counter += 1
+                if silver_token_counter == 8:
+                    end = time.time()
+                    print("loop time: ")
+                    print(end - start)
+                    loops_time.append(end - start)
+                    loop_counter += 1
+                    silver_token_counter = 1
+                    start = time.time()
 
+                    if loop_counter == 5:
+                        print("statistical analysis done...")
+                        print("loops time:")
+                        print(loops_time)
+                        print("average loop time:")
+                        print(sum(loops_time)/len(loops_time))
+                        exit() 
