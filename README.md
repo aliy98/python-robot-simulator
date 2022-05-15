@@ -9,19 +9,20 @@ $ python run.py my_solution.py
 $ python run.py given_solution.py
 ```
 ## Simulation Results
+The outcomes for 20 iterations of simulations with different positions of silver tokens for both implementations is shown in the following table:
 | given solution | my solution |
 | -------------- | ----------- |
 | 189.78 | wrong way |
-| 177.71 | 220.71 | 
+| 177.71 | 220.71 |
 | 189.32 | wrong way |
 | 173.98 | 206.03 |
 | wrong way | 267.66 |
 | 184.31 | wrong way |
 | 186.9 | wrong way |
-| collision | crash | 
+| collision | crash |
 | wrong way | wrong way |
 | 193.44 | 213.25 |
-| 192.86 | wrong way | 
+| 192.86 | wrong way |
 | 175.13 | wrong way |
 | 182.85 | crash |
 | 180.65 | 201.87 |
