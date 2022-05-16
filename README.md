@@ -8,7 +8,7 @@ $ python run.py my_solution.py
 ```bashscript
 $ python run.py given_solution.py
 ```
-## Simulation Results
+### Simulation Results
 The outcomes for 20 iterations of simulations with different positions of silver tokens for both implementations is shown in the following table:
 | given solution | my solution |
 | -------------- | ----------- |
@@ -33,5 +33,5 @@ The outcomes for 20 iterations of simulations with different positions of silver
 | 190.82 | wrong way |
 | wrong way | 214.97 |
 
-## Jupyter Notebook
+### Jupyter Notebook
 Finally in a [jupyter notebook](https://github.com/aliy98/python_robot_simulator/blob/statistical_analysis/statistical_analysis.ipynb), statistical analysis is done on the data set provided from the above mentioned iterations.
