@@ -6,7 +6,7 @@ The simulator requires a Python 2.7 installation, the [pygame](https://www.pygam
 
 The program runs with:
 ```bashscript
-$ python run.py assignment1.py
+$ python2 run.py assignment1.py
 ```
 ## Description
 The robot will have the following behaviour
