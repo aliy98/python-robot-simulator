@@ -3,10 +3,10 @@ To perform a statistical analysis, two different implementations of robot contro
 
 The program runs with:
 ```bashscript
-$ python run.py my_solution.py
+$ python2 run.py my_solution.py
 ```
 ```bashscript
-$ python run.py given_solution.py
+$ python2 run.py given_solution.py
 ```
 ### Simulation Results
 The outcomes for 20 iterations of simulations with different positions of silver tokens for both implementations is shown in the following table:
