@@ -34,4 +34,4 @@ The outcomes for 20 iterations of simulations with different positions of silver
 | wrong way | 214.97 |
 
 ## Jupyter Notebook
-Finally in a [jupyter notebook](https://github.com/aliy98/python_robot_simulator/blob/statistical_analysis/statistical_analysis.ipynb), statistical analysis was done on the data set provided from the above mentioned iterations.
+Finally in a [jupyter notebook](https://github.com/aliy98/python_robot_simulator/blob/statistical_analysis/statistical_analysis.ipynb), statistical analysis is done on the data set provided from the above mentioned iterations.
